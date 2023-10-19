@@ -126,14 +126,15 @@ implement one-pass random sampling with a reservoir with exponential jumps
 implemented in <code>Rcpp</code>; <code>*_expj()</code> uses log-transformed keys,
 <code>*_expjs()</code> implements the algorithm in the paper verbatim
 (at the cost of numerical stability).</p>
-<p><code>sample_int_rank()</code>, <code>sample_int_crank()</code> and
-<code>sample_int_ccrank()</code> implement one-pass random sampling
-(Efraimidis and Spirakis, 2006, Algorithm A; see also Yellott, 1977,
-and Vieira, 2014, for an equivalent formulation).  The first function is
-implemented purely in R, the other two are optimized <code>Rcpp</code>
+<p><code>sample_int_rank()</code>, <code>sample_int_crank()</code>,
+<code>sample_int_ccrank()</code> and <code>sample_int_cccrank()</code>implement one-pass random
+sampling (Efraimidis and Spirakis, 2006, Algorithm A; see also Yellott,
+1977, and Vieira, 2014, for an equivalent formulation).  The first function
+is implemented purely in R, the other three are optimized <code>Rcpp</code>
 implementations (<code>*_crank()</code> uses R vectors internally, while
-<code>*_ccrank()</code> uses <code>std::vector</code>; surprisingly, <code>*_crank()</code> seems
-to be faster on most inputs). It can be
+<code>*_ccrank()</code> uses <code>std::vector</code>; <code>*_cccrank()</code> is a memory-optimized
+implementation that only requires \(O(\text{size})\) extra space;
+surprisingly, <code>*_crank()</code> seems to be faster on most inputs). It can be
 shown that the order statistic of \(U^{(1/w_i)}\) has the same
 distribution as random sampling without replacement (\(U=\mbox{uniform}(0,1)\)
 distribution). To increase numerical stability, \(\log(U) /
